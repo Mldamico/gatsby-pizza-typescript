@@ -297,8 +297,15 @@ export type SitePage = Node & {
   children: Array<Node>;
   internal: Internal;
   isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
+  context?: Maybe<SitePageContext>;
   pluginCreator?: Maybe<SitePlugin>;
   pluginCreatorId?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContext = {
+  slug?: Maybe<Scalars['String']>;
+  topping?: Maybe<Scalars['String']>;
+  toppingRegex?: Maybe<Scalars['String']>;
 };
 
 export type SanityBlock = {
@@ -1307,6 +1314,7 @@ export type QuerySitePageArgs = {
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
   isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  context?: Maybe<SitePageContextFilterInput>;
   pluginCreator?: Maybe<SitePluginFilterInput>;
   pluginCreatorId?: Maybe<StringQueryOperatorInput>;
 };
@@ -2609,6 +2617,12 @@ export type SiteFunctionSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
+export type SitePageContextFilterInput = {
+  slug?: Maybe<StringQueryOperatorInput>;
+  topping?: Maybe<StringQueryOperatorInput>;
+  toppingRegex?: Maybe<StringQueryOperatorInput>;
+};
+
 export type SitePluginFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -2825,6 +2839,9 @@ export type SitePageFieldsEnum =
   | 'internal___owner'
   | 'internal___type'
   | 'isCreatedByStatefulCreatePages'
+  | 'context___slug'
+  | 'context___topping'
+  | 'context___toppingRegex'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
@@ -2927,6 +2944,7 @@ export type SitePageFilterInput = {
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
   isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  context?: Maybe<SitePageContextFilterInput>;
   pluginCreator?: Maybe<SitePluginFilterInput>;
   pluginCreatorId?: Maybe<StringQueryOperatorInput>;
 };
@@ -4790,12 +4808,24 @@ export type SitePluginSortInput = {
 export type ToppingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ToppingsQuery = { toppings: { nodes: Array<Pick<SanityTopping, 'name' | 'id' | 'vegetarian'>> }, pizzas: { nodes: Array<{ toppings?: Maybe<Array<Maybe<Pick<SanityTopping, 'name' | 'id'>>>> }> } };
+export type ToppingsQuery = { pizzas: { nodes: Array<{ toppings?: Maybe<Array<Maybe<Pick<SanityTopping, 'name' | 'id'>>>> }> } };
 
-export type PizzasQueryVariables = Exact<{ [key: string]: never; }>;
+export type PizzasQueryVariables = Exact<{
+  toppingRegex?: Maybe<Scalars['String']>;
+}>;
 
 
 export type PizzasQuery = { pizzas: { nodes: Array<(
       Pick<SanityPizza, 'name' | 'id' | 'price'>
       & { slug?: Maybe<Pick<SanitySlug, 'current'>>, toppings?: Maybe<Array<Maybe<Pick<SanityTopping, 'id' | 'name'>>>>, image?: Maybe<{ asset?: Maybe<Pick<SanityImageAsset, 'gatsbyImageData'>> }> }
     )> } };
+
+export type SinglePizzaBySlugQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type SinglePizzaBySlugQuery = { pizza?: Maybe<(
+    Pick<SanityPizza, 'name' | 'id'>
+    & { toppings?: Maybe<Array<Maybe<Pick<SanityTopping, 'name' | 'id' | 'vegetarian'>>>>, image?: Maybe<{ asset?: Maybe<Pick<SanityImageAsset, 'gatsbyImageData'>> }> }
+  )> };
