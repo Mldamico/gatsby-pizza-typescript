@@ -10,8 +10,8 @@ const PizzaGridStyle = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
 `;
 
-const SinglePizza = ({ data }) => {
-  const { pizza }: SinglePizzaBySlugQuery = data;
+const SinglePizza = ({ data }: { data: SinglePizzaBySlugQuery }) => {
+  const { pizza } = data;
 
   return (
     <PizzaGridStyle>

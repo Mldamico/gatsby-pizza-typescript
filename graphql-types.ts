@@ -306,6 +306,7 @@ export type SitePageContext = {
   slug?: Maybe<Scalars['String']>;
   topping?: Maybe<Scalars['String']>;
   toppingRegex?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
   skip?: Maybe<Scalars['Int']>;
   currentPage?: Maybe<Scalars['Int']>;
   pageSize?: Maybe<Scalars['Int']>;
@@ -2682,6 +2683,7 @@ export type SitePageContextFilterInput = {
   slug?: Maybe<StringQueryOperatorInput>;
   topping?: Maybe<StringQueryOperatorInput>;
   toppingRegex?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
   skip?: Maybe<IntQueryOperatorInput>;
   currentPage?: Maybe<IntQueryOperatorInput>;
   pageSize?: Maybe<IntQueryOperatorInput>;
@@ -2906,6 +2908,7 @@ export type SitePageFieldsEnum =
   | 'context___slug'
   | 'context___topping'
   | 'context___toppingRegex'
+  | 'context___name'
   | 'context___skip'
   | 'context___currentPage'
   | 'context___pageSize'
@@ -5113,4 +5116,14 @@ export type SinglePizzaBySlugQueryVariables = Exact<{
 export type SinglePizzaBySlugQuery = { pizza?: Maybe<(
     Pick<SanityPizza, 'name' | 'id'>
     & { toppings?: Maybe<Array<Maybe<Pick<SanityTopping, 'name' | 'id' | 'vegetarian'>>>>, image?: Maybe<{ asset?: Maybe<Pick<SanityImageAsset, 'gatsbyImageData'>> }> }
+  )> };
+
+export type SingleSlicemasterBySlugQueryVariables = Exact<{
+  slug: Scalars['String'];
+}>;
+
+
+export type SingleSlicemasterBySlugQuery = { slicemaster?: Maybe<(
+    Pick<SanityPerson, 'name' | 'id' | 'description'>
+    & { image?: Maybe<{ asset?: Maybe<Pick<SanityImageAsset, 'gatsbyImageData'>> }> }
   )> };

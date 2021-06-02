@@ -1,7 +1,7 @@
 import { graphql, Link, useStaticQuery } from "gatsby";
 import React from "react";
 import styled from "styled-components";
-import { SanityPizza, SanityTopping } from "../../graphql-types";
+import { SanityPizza } from "../../graphql-types";
 
 interface ToppingPizzaCount {
   id: string;
