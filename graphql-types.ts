@@ -5092,6 +5092,16 @@ export type AllBeerQuery = { allBeer: { nodes: Array<(
       & { rating?: Maybe<Pick<BeerRating, 'average' | 'reviews'>> }
     )> } };
 
+export type PizzasInOrderQueryVariables = Exact<{
+  toppingRegex?: Maybe<Scalars['String']>;
+}>;
+
+
+export type PizzasInOrderQuery = { pizzas: { nodes: Array<(
+      Pick<SanityPizza, 'name' | 'id' | 'price'>
+      & { slug?: Maybe<Pick<SanitySlug, 'current'>>, toppings?: Maybe<Array<Maybe<Pick<SanityTopping, 'id' | 'name'>>>>, image?: Maybe<{ asset?: Maybe<Pick<SanityImageAsset, 'gatsbyImageData'>> }> }
+    )> } };
+
 export type PizzasQueryVariables = Exact<{
   toppingRegex?: Maybe<Scalars['String']>;
 }>;

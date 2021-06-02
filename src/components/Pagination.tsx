@@ -40,7 +40,6 @@ export const Pagination = ({
   pageSize,
   totalCount,
   currentPage,
-  skip,
   base,
 }: IPagination) => {
   const totalPages = Math.ceil(totalCount / pageSize);
