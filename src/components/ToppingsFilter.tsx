@@ -37,7 +37,7 @@ function countPizzasInToppings(pizzas: SanityPizza[]) {
   const counts = pizzas
     .map((pizza) => pizza.toppings)
     .flat()
-    .reduce((acc, topping) => {
+    .reduce((acc: { [key: string]: ToppingPizzaCount }, topping) => {
       const existingTopping: ToppingPizzaCount = acc[topping.id];
       if (existingTopping) {
         existingTopping.count += 1;
@@ -49,7 +49,7 @@ function countPizzasInToppings(pizzas: SanityPizza[]) {
         };
       }
       return acc;
-    }, {}) as ToppingPizzaCount;
+    }, {});
 
   const sortedToppings = Object.values(counts).sort(
     (a, b) => b.count - a.count
@@ -60,7 +60,7 @@ function countPizzasInToppings(pizzas: SanityPizza[]) {
 export const ToppingsFilter = ({
   activeTopping,
 }: {
-  activeTopping: SanityTopping;
+  activeTopping: string;
 }) => {
   const { pizzas } = useStaticQuery(graphql`
     query Toppings {

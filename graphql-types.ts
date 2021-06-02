@@ -306,6 +306,9 @@ export type SitePageContext = {
   slug?: Maybe<Scalars['String']>;
   topping?: Maybe<Scalars['String']>;
   toppingRegex?: Maybe<Scalars['String']>;
+  skip?: Maybe<Scalars['Int']>;
+  currentPage?: Maybe<Scalars['Int']>;
+  pageSize?: Maybe<Scalars['Int']>;
 };
 
 export type SanityBlock = {
@@ -1050,6 +1053,40 @@ export type ImageSharpResize = {
   originalName?: Maybe<Scalars['String']>;
 };
 
+export type Beer = Node & {
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  _0?: Maybe<Beer_0>;
+  _1?: Maybe<Beer_1>;
+  price?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  rating?: Maybe<BeerRating>;
+  image?: Maybe<Scalars['String']>;
+};
+
+export type Beer_0 = {
+  length?: Maybe<Scalars['Int']>;
+  width?: Maybe<Scalars['Int']>;
+  weight?: Maybe<Scalars['Int']>;
+  quantity?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type Beer_1 = {
+  length?: Maybe<Scalars['Int']>;
+  width?: Maybe<Scalars['Float']>;
+  weight?: Maybe<Scalars['Int']>;
+  quantity?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Float']>;
+};
+
+export type BeerRating = {
+  average?: Maybe<Scalars['Float']>;
+  reviews?: Maybe<Scalars['Int']>;
+};
+
 export type SiteBuildMetadata = Node & {
   id: Scalars['ID'];
   parent?: Maybe<Node>;
@@ -1155,6 +1192,8 @@ export type Query = {
   allSanityTopping: SanityToppingConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
+  beer?: Maybe<Beer>;
+  allBeer: BeerConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   sitePlugin?: Maybe<SitePlugin>;
@@ -1501,6 +1540,28 @@ export type QueryImageSharpArgs = {
 export type QueryAllImageSharpArgs = {
   filter?: Maybe<ImageSharpFilterInput>;
   sort?: Maybe<ImageSharpSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryBeerArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  _0?: Maybe<Beer_0FilterInput>;
+  _1?: Maybe<Beer_1FilterInput>;
+  price?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  rating?: Maybe<BeerRatingFilterInput>;
+  image?: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryAllBeerArgs = {
+  filter?: Maybe<BeerFilterInput>;
+  sort?: Maybe<BeerSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -2621,6 +2682,9 @@ export type SitePageContextFilterInput = {
   slug?: Maybe<StringQueryOperatorInput>;
   topping?: Maybe<StringQueryOperatorInput>;
   toppingRegex?: Maybe<StringQueryOperatorInput>;
+  skip?: Maybe<IntQueryOperatorInput>;
+  currentPage?: Maybe<IntQueryOperatorInput>;
+  pageSize?: Maybe<IntQueryOperatorInput>;
 };
 
 export type SitePluginFilterInput = {
@@ -2842,6 +2906,9 @@ export type SitePageFieldsEnum =
   | 'context___slug'
   | 'context___topping'
   | 'context___toppingRegex'
+  | 'context___skip'
+  | 'context___currentPage'
+  | 'context___pageSize'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
@@ -4460,6 +4527,202 @@ export type ImageSharpSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
+export type Beer_0FilterInput = {
+  length?: Maybe<IntQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  weight?: Maybe<IntQueryOperatorInput>;
+  quantity?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type Beer_1FilterInput = {
+  length?: Maybe<IntQueryOperatorInput>;
+  width?: Maybe<FloatQueryOperatorInput>;
+  weight?: Maybe<IntQueryOperatorInput>;
+  quantity?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<FloatQueryOperatorInput>;
+};
+
+export type BeerRatingFilterInput = {
+  average?: Maybe<FloatQueryOperatorInput>;
+  reviews?: Maybe<IntQueryOperatorInput>;
+};
+
+export type BeerConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<BeerEdge>;
+  nodes: Array<Beer>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<BeerGroupConnection>;
+};
+
+
+export type BeerConnectionDistinctArgs = {
+  field: BeerFieldsEnum;
+};
+
+
+export type BeerConnectionMaxArgs = {
+  field: BeerFieldsEnum;
+};
+
+
+export type BeerConnectionMinArgs = {
+  field: BeerFieldsEnum;
+};
+
+
+export type BeerConnectionSumArgs = {
+  field: BeerFieldsEnum;
+};
+
+
+export type BeerConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: BeerFieldsEnum;
+};
+
+export type BeerEdge = {
+  next?: Maybe<Beer>;
+  node: Beer;
+  previous?: Maybe<Beer>;
+};
+
+export type BeerFieldsEnum =
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | '_0___length'
+  | '_0___width'
+  | '_0___weight'
+  | '_0___quantity'
+  | '_0___height'
+  | '_1___length'
+  | '_1___width'
+  | '_1___weight'
+  | '_1___quantity'
+  | '_1___height'
+  | 'price'
+  | 'name'
+  | 'rating___average'
+  | 'rating___reviews'
+  | 'image';
+
+export type BeerGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<BeerEdge>;
+  nodes: Array<Beer>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type BeerFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  _0?: Maybe<Beer_0FilterInput>;
+  _1?: Maybe<Beer_1FilterInput>;
+  price?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  rating?: Maybe<BeerRatingFilterInput>;
+  image?: Maybe<StringQueryOperatorInput>;
+};
+
+export type BeerSortInput = {
+  fields?: Maybe<Array<Maybe<BeerFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type SiteBuildMetadataConnection = {
   totalCount: Scalars['Int'];
   edges: Array<SiteBuildMetadataEdge>;
@@ -4810,6 +5073,14 @@ export type ToppingsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ToppingsQuery = { pizzas: { nodes: Array<{ toppings?: Maybe<Array<Maybe<Pick<SanityTopping, 'name' | 'id'>>>> }> } };
 
+export type AllBeerQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllBeerQuery = { allBeer: { nodes: Array<(
+      Pick<Beer, 'id' | 'name' | 'price' | 'image'>
+      & { rating?: Maybe<Pick<BeerRating, 'average' | 'reviews'>> }
+    )> } };
+
 export type PizzasQueryVariables = Exact<{
   toppingRegex?: Maybe<Scalars['String']>;
 }>;
@@ -4819,6 +5090,20 @@ export type PizzasQuery = { pizzas: { nodes: Array<(
       Pick<SanityPizza, 'name' | 'id' | 'price'>
       & { slug?: Maybe<Pick<SanitySlug, 'current'>>, toppings?: Maybe<Array<Maybe<Pick<SanityTopping, 'id' | 'name'>>>>, image?: Maybe<{ asset?: Maybe<Pick<SanityImageAsset, 'gatsbyImageData'>> }> }
     )> } };
+
+export type SlicemastersQueryVariables = Exact<{
+  skip?: Maybe<Scalars['Int']>;
+  pageSize?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type SlicemastersQuery = { slicemasters: (
+    Pick<SanityPersonConnection, 'totalCount'>
+    & { nodes: Array<(
+      Pick<SanityPerson, 'name' | 'id' | 'description'>
+      & { slug?: Maybe<Pick<SanitySlug, 'current'>>, image?: Maybe<{ asset?: Maybe<Pick<SanityImageAsset, 'gatsbyImageData'>> }> }
+    )> }
+  ) };
 
 export type SinglePizzaBySlugQueryVariables = Exact<{
   slug: Scalars['String'];

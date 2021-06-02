@@ -1,6 +1,6 @@
 import { Link } from "gatsby";
 import React from "react";
-import { SanityPizza } from "../../graphql-types";
+import { PizzasQuery, SanityPizza } from "../../graphql-types";
 import { GatsbyImage } from "gatsby-plugin-image";
 import styled from "styled-components";
 
@@ -40,10 +40,10 @@ function SinglePizza({ pizza }: { pizza: SanityPizza; key: String }) {
   );
 }
 
-export const PizzaList = ({ pizzas }) => {
+export const PizzaList = ({ pizzas }: { pizzas: PizzasQuery }) => {
   return (
     <PizzaGridStyles>
-      {pizzas.pizzas.nodes.map((p) => (
+      {pizzas.pizzas.nodes.map((p: SanityPizza) => (
         <SinglePizza key={p.id} pizza={p} />
       ))}
     </PizzaGridStyles>

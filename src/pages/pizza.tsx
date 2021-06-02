@@ -1,9 +1,16 @@
 import { graphql } from "gatsby";
 import React from "react";
+import { PizzasQuery } from "../../graphql-types";
 import { PizzaList } from "../components/PizzaList";
 import { ToppingsFilter } from "../components/ToppingsFilter";
 
-const PizzasPage = ({ data, pageContext }) => {
+const PizzasPage = ({
+  data,
+  pageContext,
+}: {
+  data: PizzasQuery;
+  pageContext: { topping: string };
+}) => {
   return (
     <>
       <ToppingsFilter activeTopping={pageContext.topping} />
