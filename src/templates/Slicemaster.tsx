@@ -2,6 +2,7 @@ import { graphql } from "gatsby";
 import React from "react";
 import { SingleSlicemasterBySlugQuery } from "../../graphql-types";
 import { GatsbyImage } from "gatsby-plugin-image";
+import { SEO } from "../components/SEO";
 
 const SingleSlicemaster = ({
   data,
@@ -11,16 +12,22 @@ const SingleSlicemaster = ({
   const { slicemaster } = data;
 
   return (
-    <div className="center">
-      <GatsbyImage
-        image={slicemaster.image.asset.gatsbyImageData}
-        alt={slicemaster.name}
+    <>
+      <SEO
+        title={slicemaster?.name}
+        image={slicemaster?.image?.asset?.gatsbyImageData.images.fallback.src}
       />
-      <h2>
-        <span className="mark">{slicemaster.name}</span>
-      </h2>
-      <p>{slicemaster.description}</p>
-    </div>
+      <div className="center">
+        <GatsbyImage
+          image={slicemaster.image.asset.gatsbyImageData}
+          alt={slicemaster.name}
+        />
+        <h2>
+          <span className="mark">{slicemaster.name}</span>
+        </h2>
+        <p>{slicemaster.description}</p>
+      </div>
+    </>
   );
 };
 

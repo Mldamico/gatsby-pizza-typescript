@@ -3,6 +3,7 @@ import React from "react";
 import { SinglePizzaBySlugQuery } from "../../graphql-types";
 import { GatsbyImage } from "gatsby-plugin-image";
 import styled from "styled-components";
+import { SEO } from "../components/SEO";
 
 const PizzaGridStyle = styled.div`
   display: grid;
@@ -12,19 +13,28 @@ const PizzaGridStyle = styled.div`
 
 const SinglePizza = ({ data }: { data: SinglePizzaBySlugQuery }) => {
   const { pizza } = data;
-
+  console.log(pizza?.image?.asset?.gatsbyImageData);
   return (
-    <PizzaGridStyle>
-      <GatsbyImage image={pizza.image.asset.gatsbyImageData} alt={pizza.name} />
-      <div>
-        <h2 className="mark">{pizza.name}</h2>
-        <ul>
-          {pizza.toppings.map((topping) => (
-            <li key={topping.id}>{topping.name}</li>
-          ))}
-        </ul>
-      </div>
-    </PizzaGridStyle>
+    <>
+      <SEO
+        title={pizza?.name}
+        image={pizza?.image?.asset?.gatsbyImageData.images.fallback.src}
+      />
+      <PizzaGridStyle>
+        <GatsbyImage
+          image={pizza.image.asset.gatsbyImageData}
+          alt={pizza.name}
+        />
+        <div>
+          <h2 className="mark">{pizza.name}</h2>
+          <ul>
+            {pizza.toppings.map((topping) => (
+              <li key={topping.id}>{topping.name}</li>
+            ))}
+          </ul>
+        </div>
+      </PizzaGridStyle>
+    </>
   );
 };
 

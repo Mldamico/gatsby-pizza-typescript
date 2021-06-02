@@ -270,6 +270,7 @@ export type SiteSiteMetadata = {
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   siteUrl?: Maybe<Scalars['String']>;
+  twitter?: Maybe<Scalars['String']>;
 };
 
 export type SiteFunction = Node & {
@@ -2341,6 +2342,7 @@ export type SiteSiteMetadataFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   siteUrl?: Maybe<StringQueryOperatorInput>;
+  twitter?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SiteConnection = {
@@ -2393,6 +2395,7 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___siteUrl'
+  | 'siteMetadata___twitter'
   | 'port'
   | 'host'
   | 'polyfill'
@@ -5070,6 +5073,11 @@ export type SitePluginSortInput = {
   fields?: Maybe<Array<Maybe<SitePluginFieldsEnum>>>;
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
+
+export type SiteDataQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SiteDataQueryQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'twitter'>> }> };
 
 export type ToppingsQueryVariables = Exact<{ [key: string]: never; }>;
 

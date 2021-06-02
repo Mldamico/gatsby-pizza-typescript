@@ -6,7 +6,8 @@ module.exports = {
   siteMetadata: {
     title: `Pizza Page`,
     siteUrl: 'http://pizza.page',
-    description: 'Pizza page description'
+    description: 'Pizza page description',
+    twitter: '@slickSlices'
   },
   plugins: [
     {
@@ -17,6 +18,7 @@ module.exports = {
         dataset: 'production',
       },
     },
+    'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
     {
       resolve: `gatsby-source-sanity`,

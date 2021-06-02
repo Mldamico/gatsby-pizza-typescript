@@ -55,6 +55,7 @@ export const Pagination = ({
       </Link>
       {Array.from({ length: totalPages }).map((_, i) => (
         <Link
+          key={i}
           className={currentPage === 1 && i === 0 ? "current" : ""}
           to={`${base}/${i > 0 ? i + 1 : ""}`}
         >
